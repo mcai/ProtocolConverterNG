@@ -1,4 +1,7 @@
+# mock_sensor.py
+
 import asyncio
+from datetime import datetime
 from pymodbus.server.async_io import StartAsyncTcpServer
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
@@ -21,6 +24,10 @@ async def start_mock_sensor():
     identity.ProductName = 'Mock Sensor'  # 产品名称
     identity.ModelName = 'Mock Sensor Model'  # 型号名称
     identity.MajorMinorRevision = '1.0'  # 版本号
+
+    # 打印欢迎信息
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f"{current_time} - 欢迎使用 Mock Sensor 服务器！服务器正在localhost:5021运行...")
 
     # 运行Modbus服务器
     await StartAsyncTcpServer(context, identity=identity, address=("localhost", 5021))

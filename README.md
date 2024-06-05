@@ -12,7 +12,6 @@ ProtocolConverterNG/
 ├── device_ups.py
 ├── mock_sensor.py
 ├── mock_ups.py
-├── shared_buffer.py
 └── README.md
 ```
 
@@ -97,10 +96,6 @@ pip install pymodbus
 ### `mock_ups.py`
 
 - 启动模拟Modbus服务器，模拟UPS设备。
-
-### `shared_buffer.py`
-
-- 定义共享缓冲区和用于线程安全访问的锁。
 
 ## 测试设置
 
