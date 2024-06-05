@@ -5,14 +5,9 @@ import asyncio
 from pymodbus.server.async_io import StartAsyncTcpServer
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
-from shared_buffer import buffer_lock
 from device_ups import read_ups_data
 from device_sensor import read_sensor_data
 from pymodbus.datastore import ModbusSparseDataBlock
-
-class SharedBufferDataBlock(ModbusSparseDataBlock):
-    def __init__(self, values=None, mutable=True):
-        super().__init__(values, mutable)
 
 async def start_server():
     # 初始化共享缓冲区数据块
@@ -23,12 +18,13 @@ async def start_server():
         initial_values[i] = 0  # 初始值为0
 
     # 配置Modbus数据存储
-    shared_buffer_block = SharedBufferDataBlock(initial_values)
+    shared_buffer_block = ModbusSparseDataBlock(initial_values)
     store = ModbusSlaveContext(
         di=None,
         co=None,
         hr=shared_buffer_block,  # 使用共享缓冲区数据块
-        ir=None
+        ir=None,
+        zero_mode=True
     )
     context = ModbusServerContext(slaves=store, single=True)
 
