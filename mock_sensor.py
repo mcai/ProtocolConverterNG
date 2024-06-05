@@ -1,4 +1,3 @@
-# mock_devices/mock_sensor.py
 import asyncio
 from pymodbus.server.async_io import StartAsyncTcpServer
 from pymodbus.device import ModbusDeviceIdentification
@@ -9,7 +8,7 @@ async def start_mock_sensor():
     store = ModbusSlaveContext(
         di=ModbusSequentialDataBlock(0, [18]*100),
         co=ModbusSequentialDataBlock(0, [18]*100),
-        hr=ModbusSequentialDataBlock(0, [20]*10),  # Mock data
+        hr=ModbusSequentialDataBlock(0, [20]*10),
         ir=ModbusSequentialDataBlock(0, [18]*100))
     context = ModbusServerContext(slaves=store, single=True)
 

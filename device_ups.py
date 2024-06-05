@@ -1,10 +1,9 @@
-# devices/ups.py
 import time
 from pymodbus.client import ModbusTcpClient
 from shared_buffer import shared_buffer, buffer_lock
 
 def read_ups_data():
-    client = ModbusTcpClient('localhost', port=5020)  # Example connection
+    client = ModbusTcpClient('localhost', port=5020)
     client.connect()
     while True:
         result = client.read_holding_registers(0, 10)
@@ -14,4 +13,4 @@ def read_ups_data():
             continue
         with buffer_lock:
             shared_buffer["UPS"] = result.registers
-        time.sleep(1)  # Polling interval
+        time.sleep(1)

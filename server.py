@@ -1,4 +1,3 @@
-# server.py
 import asyncio
 from pymodbus.server.async_io import StartAsyncTcpServer
 from pymodbus.device import ModbusDeviceIdentification
@@ -22,7 +21,6 @@ class SharedBufferDataBlock(ModbusSparseDataBlock):
             return values
 
 async def start_server():
-    # Configure the Modbus server
     store = ModbusSlaveContext(
         di=None,
         co=None,
@@ -39,11 +37,9 @@ async def start_server():
     identity.ModelName = 'pymodbus Server'
     identity.MajorMinorRevision = '1.0'
 
-    # Start tasks for reading from devices
     asyncio.create_task(read_ups_data())
     asyncio.create_task(read_sensor_data())
 
-    # Start the Modbus server
     await StartAsyncTcpServer(context, identity=identity, address=("localhost", 5022))
 
 if __name__ == "__main__":
