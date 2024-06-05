@@ -1,96 +1,111 @@
-# Modbus Protocol Converter Project
+# Modbus协议转换器项目
 
-This project demonstrates how to create a Modbus server that aggregates data from multiple devices, maps their data into a shared buffer, and exposes this buffer via Modbus to a remote console. Mock devices (UPS and Sensor) are also included for testing purposes.
+该项目演示了如何创建一个Modbus服务器，该服务器从多个设备汇总数据，将它们的数据映射到共享缓冲区，并通过Modbus将此缓冲区暴露给远程控制台。还包括用于测试的模拟设备（UPS和传感器）。
 
-## Project Structure
+## 项目结构
 
 ```
-modbus_project/
+ProtocolConverterNG/
 ├── server.py
 ├── client.py
-├── devices/
-│   ├── __init__.py
-│   ├── ups.py
-│   └── sensors.py
-├── mock_devices/
-│   ├── __init__.py
-│   ├── mock_ups.py
-│   └── mock_sensor.py
-├── .gitignore
-└── shared_buffer.py
+├── device_sensor.py
+├── device_ups.py
+├── mock_sensor.py
+├── mock_ups.py
+├── shared_buffer.py
+└── README.md
 ```
 
-## Prerequisites
+## 前提条件
 
-- Python 3.6 or higher
-- `pymodbus` library
+- Python 3.6或更高版本
+- `pymodbus`库
 
-You can install the `pymodbus` library using pip:
+你可以使用pip安装`pymodbus`库：
 
 ```bash
 pip install pymodbus
 ```
 
-## Setup Instructions
+## 设置说明
 
-1. **Clone the repository** (if applicable) or download the project files.
+1. **克隆存储库**（如果适用）或下载项目文件。
 
-2. **Install the required Python packages**:
+2. **安装所需的Python包**：
 
    ```bash
    pip install pymodbus
    ```
 
-3. **Run the Modbus Server**:
+3. **启动模拟UPS和传感器服务器**：
 
-   Execute the `server.py` script to start the Modbus server, along with the mock UPS and sensor servers.
+   分别执行`mock_ups.py`和`mock_sensor.py`脚本以启动模拟服务器。
+
+   在一个终端窗口中，运行：
+
+   ```bash
+   python mock_ups.py
+   ```
+
+   在另一个终端窗口中，运行：
+
+   ```bash
+   python mock_sensor.py
+   ```
+
+4. **运行Modbus服务器**：
+
+   在新的终端窗口中，执行`server.py`脚本以启动Modbus服务器。
 
    ```bash
    python server.py
    ```
 
-4. **Run the Modbus Client**:
+5. **运行Modbus客户端**：
 
-   In a new terminal window, execute the `client.py` script to connect to the Modbus server and read data from the mock devices.
+   在新的终端窗口中，执行`client.py`脚本以连接到Modbus服务器并从模拟设备读取数据。
 
    ```bash
    python client.py
    ```
 
-## Project Components
+## 项目组件
 
 ### `server.py`
 
-- Starts the main Modbus server that aggregates data from mock UPS and sensor servers.
-- Reads data from the mock devices and stores it in a shared buffer.
-- Exposes the data in the shared buffer via Modbus.
+- 启动汇总来自模拟UPS和传感器服务器数据的主要Modbus服务器。
+- 从模拟设备读取数据并将其存储在共享缓冲区中。
+- 通过Modbus暴露共享缓冲区中的数据。
 
 ### `client.py`
 
-- Connects to the main Modbus server and reads data from the shared buffer.
-- Demonstrates how to query the server for data from UPS and sensors.
+- 连接到主要Modbus服务器并从共享缓冲区读取数据。
+- 演示如何从UPS和传感器查询服务器数据。
 
-### `devices/`
+### `device_sensor.py`
 
-- `ups.py`: Contains the function to read data from the mock UPS server.
-- `sensors.py`: Contains the function to read data from the mock sensor server.
+- 包含从模拟传感器服务器读取数据的函数。
 
-### `mock_devices/`
+### `device_ups.py`
 
-- `mock_ups.py`: Starts a mock Modbus server simulating a UPS device.
-- `mock_sensor.py`: Starts a mock Modbus server simulating a sensor device.
+- 包含从模拟UPS服务器读取数据的函数。
+
+### `mock_sensor.py`
+
+- 启动模拟Modbus服务器，模拟传感器设备。
+
+### `mock_ups.py`
+
+- 启动模拟Modbus服务器，模拟UPS设备。
 
 ### `shared_buffer.py`
 
-- Defines the shared buffer and a lock for thread-safe access.
+- 定义共享缓冲区和用于线程安全访问的锁。
 
-### `.gitignore`
+## 测试设置
 
-- Specifies files and directories to be ignored by Git.
+1. 分别运行`mock_ups.py`和`mock_sensor.py`以启动模拟服务器。
+2. 运行`server.py`启动Modbus服务器。
+3. 在单独的终端中运行`client.py`以读取并验证来自Modbus服务器的数据。
 
-## Testing the Setup
-
-1. Start the Modbus server by running `server.py`.
-2. In a separate terminal, run `client.py` to read and verify data from the Modbus server.
-
-This setup allows you to simulate a Modbus communication system with multiple devices, providing a framework to develop and test Modbus applications without requiring physical devices.
+此设置允许你模拟具有多个设备的Modbus通信系统，提供一个框架来开发和测试Modbus应用程序，而无需物理设备。
