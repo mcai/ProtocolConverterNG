@@ -17,13 +17,13 @@ ProtocolConverterNG/
 
 ## 前提条件
 
-- Python 3.6或更高版本
+- Python 3.9或更高版本
 - `pymodbus`库
 
 你可以使用pip安装`pymodbus`库：
 
 ```bash
-pip install pymodbus
+pip3 install pymodbus
 ```
 
 ## 设置说明
@@ -33,7 +33,7 @@ pip install pymodbus
 2. **安装所需的Python包**：
 
    ```bash
-   pip install pymodbus
+   pip3 install pymodbus
    ```
 
 3. **启动模拟UPS和传感器服务器**：
@@ -43,13 +43,13 @@ pip install pymodbus
    在一个终端窗口中，运行：
 
    ```bash
-   python mock_ups.py
+   python3 mock_ups.py
    ```
 
    在另一个终端窗口中，运行：
 
    ```bash
-   python mock_sensor.py
+   python3 mock_sensor.py
    ```
 
 4. **运行Modbus服务器**：
@@ -57,7 +57,7 @@ pip install pymodbus
    在新的终端窗口中，执行`server.py`脚本以启动Modbus服务器。
 
    ```bash
-   python server.py
+   python3 server.py
    ```
 
 5. **运行Modbus客户端**：
@@ -65,7 +65,7 @@ pip install pymodbus
    在新的终端窗口中，执行`client.py`脚本以连接到Modbus服务器并从模拟设备读取数据。
 
    ```bash
-   python client.py
+   python3 client.py
    ```
 
 ## 项目组件
