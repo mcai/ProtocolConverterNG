@@ -1,11 +1,12 @@
 # shared_buffer.py
+
 import threading
 
-# Shared buffer
+# 共享缓冲区
 shared_buffer = {
-    "UPS": [0] * 10,
-    "Sensors": [0] * 10
+    "UPS": [0] * 10,  # UPS 数据
+    "Sensors": [0] * 10  # 传感器数据
 }
 
-# Lock for thread-safe access to the buffer
+# 用于线程安全访问缓冲区的锁
 buffer_lock = threading.Lock()
