@@ -20,7 +20,7 @@ class SharedBufferDataBlock(ModbusSparseDataBlock):
             if 0 <= address < 10:
                 values = shared_buffer["UPS"][address:address+count]  # 读取UPS数据
             elif 10 <= address < 20:
-                values = shared_buffer["Sensors"][address-10:address-10+count]  # 读取传感器数据
+                values = shared_buffer["Sensor"][address-10:address-10+count]  # 读取传感器数据
             return values
 
 async def start_server():

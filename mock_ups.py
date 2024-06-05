@@ -1,6 +1,7 @@
 # mock_ups.py
 
 import asyncio
+from datetime import datetime
 from pymodbus.server.async_io import StartAsyncTcpServer
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
@@ -26,7 +27,7 @@ async def start_mock_ups():
 
     # 定义日志记录函数
     def log_request(request):
-        print(f"Request received: {request}")
+        print(f"{datetime.now()} - 收到请求: {request}")
 
     # 异步请求处理器
     async def request_handler(context):

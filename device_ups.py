@@ -11,11 +11,11 @@ def read_ups_data():
     client.connect()
     while True:
         try:
-            print(f"{datetime.now()} - UPS: Sending read request...")  # 发送读取请求
+            print(f"{datetime.now()} - UPS: 发送读取请求...")  # 发送读取请求
             result = client.read_holding_registers(0, 10)  # 请求前10个保持寄存器
-            print(f"{datetime.now()} - UPS: Response received: {result}")  # 输出响应结果
+            print(f"{datetime.now()} - UPS: 收到响应: {result}")  # 输出响应结果
             if result.isError():
-                raise Exception("Error reading UPS data: " + str(result))  # 抛出读取错误异常
+                raise Exception("读取UPS数据出错: " + str(result))  # 抛出读取错误异常
             with buffer_lock:  # 使用锁进行线程安全访问
                 shared_buffer["UPS"] = result.registers  # 更新共享缓冲区中的UPS数据
         except Exception as e:

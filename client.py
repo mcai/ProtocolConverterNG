@@ -9,16 +9,16 @@ client.connect()
 # 读取UPS数据的保持寄存器（地址0-9）
 result = client.read_holding_registers(0, 10)
 if not result.isError():
-    print(f"UPS Data: {result.registers}")  # 输出UPS数据
+    print(f"UPS数据: {result.registers}")  # 输出UPS数据
 else:
-    print("Error reading UPS data")  # 输出读取错误信息
+    print("读取UPS数据出错")  # 输出读取错误信息
 
 # 读取传感器数据的保持寄存器（地址10-19）
 result = client.read_holding_registers(10, 10)
 if not result.isError():
-    print(f"Sensor Data: {result.registers}")  # 输出传感器数据
+    print(f"传感器数据: {result.registers}")  # 输出传感器数据
 else:
-    print("Error reading Sensor data")  # 输出读取错误信息
+    print("读取传感器数据出错")  # 输出读取错误信息
 
 # 关闭客户端连接
 client.close()
