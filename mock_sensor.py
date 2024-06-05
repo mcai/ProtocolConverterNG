@@ -1,10 +1,11 @@
 # mock_devices/mock_sensor.py
-from pymodbus.server import StartTcpServer
+import asyncio
+from pymodbus.server.async_io import StartAsyncTcpServer
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 from pymodbus.datastore import ModbusSequentialDataBlock
 
-def start_mock_sensor():
+async def start_mock_sensor():
     store = ModbusSlaveContext(
         di=ModbusSequentialDataBlock(0, [18]*100),
         co=ModbusSequentialDataBlock(0, [18]*100),
@@ -20,4 +21,7 @@ def start_mock_sensor():
     identity.ModelName = 'Mock Sensor Model'
     identity.MajorMinorRevision = '1.0'
 
-    StartTcpServer(context, identity=identity, address=("localhost", 5021))
+    await StartAsyncTcpServer(context, identity=identity, address=("localhost", 5021))
+
+if __name__ == "__main__":
+    asyncio.run(start_mock_sensor())

@@ -1,10 +1,11 @@
 # mock_devices/mock_ups.py
-from pymodbus.server import StartTcpServer
+import asyncio
+from pymodbus.server.async_io import StartAsyncTcpServer
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 from pymodbus.datastore import ModbusSequentialDataBlock
 
-def start_mock_ups():
+async def start_mock_ups():
     store = ModbusSlaveContext(
         di=ModbusSequentialDataBlock(0, [17]*100),
         co=ModbusSequentialDataBlock(0, [17]*100),
@@ -20,4 +21,7 @@ def start_mock_ups():
     identity.ModelName = 'Mock UPS Model'
     identity.MajorMinorRevision = '1.0'
 
-    StartTcpServer(context, identity=identity, address=("localhost", 5020))
+    await StartAsyncTcpServer(context, identity=identity, address=("localhost", 5020))
+
+if __name__ == "__main__":
+    asyncio.run(start_mock_ups())
