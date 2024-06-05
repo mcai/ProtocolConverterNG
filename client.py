@@ -3,7 +3,7 @@
 from pymodbus.client import ModbusTcpClient
 
 # 创建Modbus TCP客户端并连接到服务器
-client = ModbusTcpClient('localhost', port=5020)
+client = ModbusTcpClient('localhost', port=5022)
 client.connect()
 
 # 读取UPS数据的保持寄存器（地址0-9）
